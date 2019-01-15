@@ -1,5 +1,8 @@
 package fr.insa.room.entities;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Room {
 
 	private Alarm alarm;
@@ -109,7 +112,8 @@ public class Room {
 		
 		Room.getInstance().getDoor().openDoor();
 		Room.getInstance().getWindow().openWindow();
-		Room.getInstance().getLight().openLights();
+		//because here we allow it to open but it depends on the movement
+		//Room.getInstance().getLight().openLights();
 	}
 	
 	/**
@@ -125,4 +129,48 @@ public class Room {
 		Room.getInstance().getHeater().closeHeater();
 	}
 	
+	/**
+	 * This function will be invoked when it receives a movement from the movement sensor
+	 */
+	public void receiveAMovement(){
+		
+		// Alarm is on, it's during the night time
+		if(Room.getInstance().getAlarm().getState()){
+			Room.getInstance().getAlarm().setRinging(true);
+			System.out.println("--------------------ALARM-------------------");
+			System.out.println("Some one enters the room during the night!!!");
+			System.out.println("--------------------ALARM-------------------");
+		}else{
+			// This is the day time, we will turn on the light
+			Room.getInstance().getLight().openLights();
+			Timer timer = new Timer();
+			TurnOffLightTask task = new TurnOffLightTask();
+			timer.schedule(task, 600000);
+		}
+		
+	}
+	
+	/**
+	 * This function will be invoked when it receives a tempreture signal
+	 * inner tempreture & outer tempreture
+	 */
+	public void receiveATempreture(Float inner, Float outer){
+		
+	}
+	
+	public class TurnOffLightTask extends TimerTask{
+
+		public TurnOffLightTask(){
+			
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			Room.getInstance().getLight().closeLights();
+		}
+		
+	}
 }
+
+
