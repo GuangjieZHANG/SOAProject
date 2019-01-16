@@ -20,6 +20,22 @@ public class DoorWS {
 		return Room.getInstance().getDoor().getState();
 	}
 	
+	@GET
+	@Path("/Open")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean openDoor(){
+		Room.getInstance().getDoor().setState(true);
+		return Room.getInstance().getDoor().getState();
+	}
+	
+	@GET
+	@Path("/Close")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean closeDoor(){
+		Room.getInstance().getDoor().setState(false);
+		return Room.getInstance().getDoor().getState();
+	}
+	
 	@PUT
 	@Path("/{DoorState}")
 	@Produces(MediaType.TEXT_PLAIN)

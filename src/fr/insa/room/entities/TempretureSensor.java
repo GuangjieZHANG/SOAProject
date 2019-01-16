@@ -5,7 +5,7 @@ public class TempretureSensor {
 	private Float tempreture;
 	
 	public TempretureSensor() {
-		super();
+		this.tempreture = (float)Math.random()*20+5;
 	}
 
 	public TempretureSensor(Float tempreture) {
@@ -13,7 +13,9 @@ public class TempretureSensor {
 		this.tempreture = tempreture;
 	}
 
+	//each time it returns a float between 5 and 25
 	public Float getTempreture() {
+		this.tempreture = (float)Math.random()*20+5;
 		return tempreture;
 	}
 

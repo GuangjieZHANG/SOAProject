@@ -20,6 +20,24 @@ public class HeaterWS {
 		return Room.getInstance().getHeater().getState();
 	}
 	
+	@GET
+	@Path("/Open")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean openHeater(){
+		Room.getInstance().getHeater().setState(true);
+		return Room.getInstance().getHeater().getState();
+	}
+	
+	@GET
+	@Path("/Close")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean closeHeater(){
+		Room.getInstance().getHeater().setState(false);
+		return Room.getInstance().getHeater().getState();
+	}
+	
+	
+	
 	@PUT
 	@Path("/{HeaterState}")
 	@Produces(MediaType.TEXT_PLAIN)

@@ -21,6 +21,22 @@ public class LightWS {
 		return Room.getInstance().getLight().getState();
 	}
 	
+	@GET
+	@Path("/Open")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean openLight(){
+		Room.getInstance().getLight().setState(true);
+		return Room.getInstance().getLight().getState();
+	}
+	
+	@GET
+	@Path("/Close")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean closeLight(){
+		Room.getInstance().getLight().setState(false);
+		return Room.getInstance().getLight().getState();
+	}
+	
 	@PUT
 	@Path("/{LightState}")
 	@Produces(MediaType.TEXT_PLAIN)

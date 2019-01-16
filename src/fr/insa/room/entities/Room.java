@@ -1,5 +1,6 @@
 package fr.insa.room.entities;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -10,6 +11,9 @@ public class Room {
 	private Heater heater;
 	private Light light;
 	private Window window;
+	
+	private double openTime;
+	private double closeTime; 
 	
 	private MovementSensor movementSensor;
 	private TempretureSensor innerTempretureSensor;
@@ -25,6 +29,8 @@ public class Room {
 		heater = new Heater(false);
 		light = new Light(false);
 		window = new Window(false);
+		openTime = (double) 8.0;
+		closeTime = (double) 22.0;
 		
 		movementSensor = new MovementSensor();
 		innerTempretureSensor = new TempretureSensor();
@@ -71,6 +77,23 @@ public class Room {
 	public void setWindow(Window window) {
 		this.window = window;
 	}
+
+	public double getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(double openTime) {
+		this.openTime = openTime;
+	}
+
+	public double getCloseTime() {
+		return closeTime;
+	}
+
+	public void setCloseTime(double closeTime) {
+		this.closeTime = closeTime;
+	}
+
 	public MovementSensor getMovementSensor() {
 		return movementSensor;
 	}
@@ -97,16 +120,16 @@ public class Room {
 	/**
 	 * This function describes what will happen at seven o'clock
 	 */
-	public void atSeven(){
+/*	public void oneHourBeforeStart(){
 		
 		Room.getInstance().getHeater().openHeater();
 	
-	}
+	}*/
 	
 	/**
 	 * This function describes what will happen at eight o'clock
 	 */
-	public void atEight(){
+	/*public void start(){
 		
 		Room.getInstance().getAlarm().closeAlarm();
 		
@@ -114,12 +137,12 @@ public class Room {
 		Room.getInstance().getWindow().openWindow();
 		//because here we allow it to open but it depends on the movement
 		//Room.getInstance().getLight().openLights();
-	}
+	}*/
 	
 	/**
 	 *  This function describes what will happen at twenty two o'clock
 	 */
-	public void atTwentyTwo(){
+/*	public void close(){
 		
 		Room.getInstance().getAlarm().openAlarm();
 		
@@ -127,12 +150,12 @@ public class Room {
 		Room.getInstance().getWindow().closeWindow();
 		Room.getInstance().getLight().closeLights();
 		Room.getInstance().getHeater().closeHeater();
-	}
+	}*/
 	
 	/**
 	 * This function will be invoked when it receives a movement from the movement sensor
 	 */
-	public void receiveAMovement(){
+	/*public void receiveAMovement(){
 		
 		// Alarm is on, it's during the night time
 		if(Room.getInstance().getAlarm().getState()){
@@ -148,14 +171,33 @@ public class Room {
 			timer.schedule(task, 600000);
 		}
 		
-	}
+	}*/
 	
 	/**
 	 * This function will be invoked when it receives a tempreture signal
 	 * inner tempreture & outer tempreture
 	 */
-	public void receiveATempreture(Float inner, Float outer){
-		
+/*	public void receiveATempreture(Float inner, Float outer){
+		Calendar calendar = Calendar.getInstance();
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		int minute = calendar.get(Calendar.MINUTE);
+		int openHour = (int) Math.floor(Room.getInstance().getOpenTime());
+		int openMinute = (int)((Room.getInstance().getOpenTime()-openHour)*100);
+		int closeHour = (int) Math.floor(Room.getInstance().getCloseTime());
+		int closeMinute = (int)((Room.getInstance().getCloseTime()-closeHour)*100);
+		// 7:00 ~ 8:00
+		if(hour==openHour-1 && minute>openMinute){
+			if(inner<18.0){
+				Room.getInstance().getHeater().openHeater();
+			}
+		}else if(hour>openHour&&hour<=closeHour){
+			// 8:00 ~ 22:00
+			if(outer>18.0&&outer<27.0&&inner>outer){
+				Room.getInstance().getWindow().openWindow();
+			}
+		}else{
+				
+			}
 	}
 	
 	public class TurnOffLightTask extends TimerTask{
@@ -170,7 +212,7 @@ public class Room {
 			Room.getInstance().getLight().closeLights();
 		}
 		
-	}
+	}*/
 }
 
 

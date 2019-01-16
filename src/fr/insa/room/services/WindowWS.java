@@ -20,6 +20,22 @@ public class WindowWS {
 		return Room.getInstance().getWindow().getState();
 	}
 	
+	@GET
+	@Path("/Open")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean openWindow(){
+		Room.getInstance().getWindow().setState(true);
+		return Room.getInstance().getWindow().getState();
+	}
+	
+	@GET
+	@Path("/Close")
+	@Produces(MediaType.TEXT_PLAIN)
+	public boolean closeWindow(){
+		Room.getInstance().getWindow().setState(false);
+		return Room.getInstance().getWindow().getState();
+	}
+	
 	@PUT
 	@Path("/{WindowState}")
 	@Produces(MediaType.TEXT_PLAIN)
