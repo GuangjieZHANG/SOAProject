@@ -30,7 +30,7 @@ public class AlarmWS {
 	@Path("/Close")
 	@Produces(MediaType.TEXT_PLAIN)
 	public boolean closeAlarm(){
-		Room.getInstance().getAlarm().setRinging(false);
+		Room.getInstance().getAlarm().setState(false);
 		return Room.getInstance().getAlarm().getState();
 	}
 	
@@ -48,7 +48,7 @@ public class AlarmWS {
 	@Path("/Stop")
 	@Produces(MediaType.TEXT_PLAIN)
 	public boolean stopAlarm(){
-		Room.getInstance().getAlarm().closeAlarm();
+		Room.getInstance().getAlarm().setRinging(false);
 		return Room.getInstance().getAlarm().getState();
 	}
 	
